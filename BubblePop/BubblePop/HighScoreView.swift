@@ -10,7 +10,13 @@ import SwiftUI
 
 struct HighScoreView: View {
     
+    @StateObject var viewModel :HighScoreViewModel
+    
     var body: some View {
         Text("High Score")
     }
+}
+
+#Preview {
+    HighScoreView(viewModel: HighScoreViewModel())
 }

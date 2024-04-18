@@ -31,8 +31,6 @@ struct GameView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .border(.cyan)
                 .onAppear {
-                    print(geometry.size.width)
-                    print(geometry.size.height)
                 }
             }
             ForEach(viewModel.bubbles) { 
@@ -41,17 +39,24 @@ struct GameView: View {
                     .frame(width: bubble.width)
                     .onTapGesture {
                         print("Bubble Popped")
+                        viewModel.addToScore(newScore: 1)
+                        print("Score is: \(viewModel.gameScore)")
                     }
             }
             
             
         }.onReceive(viewModel.timer, perform: { _ in
             viewModel.countdown()
-            viewModel.generateBubbles()
+            if (viewModel.gameTimeLeft > 0) {
+                viewModel.generateBubbles()
+            } else {
+                viewModel.saveScore()
+                //LOAD NEW VIEW HERE
+            }
         })
     }
 }
 
 #Preview {
-    GameView(gameTimeLimit: 60)
+    GameView(gameTimeLimit: 10)
 }

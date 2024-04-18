@@ -18,6 +18,8 @@ struct Bubble: Identifiable {
 class GameViewModel : ObservableObject {
     
     @Published var gameTimeLeft: Int
+    @Published var gameScore: Int = 0
+    @Published var isGameOver: Bool = false
     @Published var bubbles :[Bubble] = []
     @Published var username: String = ""
     let userDefaults  = UserDefaults.standard
@@ -33,7 +35,7 @@ class GameViewModel : ObservableObject {
         if (gameTimeLeft > 0) {
             gameTimeLeft -= 1
         } else {
-            //print("Game Over")
+            saveScore()
         }
     }
     
@@ -44,6 +46,22 @@ class GameViewModel : ObservableObject {
             let bubble = Bubble(position: position, width: width)
             bubbles.append(bubble)
         }
+    }
+    
+    func addToScore(newScore: Int) {
+        gameScore += newScore
+    }
+    
+    func saveScore() {
+        isGameOver = true
+        if (userDefaults.object(forKey: "\(username)") != nil) {
+            if (gameScore > userDefaults.integer(forKey: "\(username)")) {
+                userDefaults.setValue(gameScore, forKey: "\(username)")
+            }
+        } else {
+            userDefaults.setValue(gameScore, forKey: "\(username)")
+        }
+
     }
     
 }

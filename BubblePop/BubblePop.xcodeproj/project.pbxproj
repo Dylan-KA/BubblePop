@@ -15,6 +15,7 @@
 		6B4303CE2BBB7EED0003E208 /* GameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4303CD2BBB7EED0003E208 /* GameViewModel.swift */; };
 		6B4DCAAE2BBB78CC006AB9B4 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B4DCAAD2BBB78CC006AB9B4 /* MenuView.swift */; };
 		6B82C93F2BBB7A5000119217 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B82C93E2BBB7A5000119217 /* MenuViewModel.swift */; };
+		6BA062602BD0E49C0080FCA9 /* HighScoreViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BA0625F2BD0E49C0080FCA9 /* HighScoreViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		6B4303CD2BBB7EED0003E208 /* GameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewModel.swift; sourceTree = "<group>"; };
 		6B4DCAAD2BBB78CC006AB9B4 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		6B82C93E2BBB7A5000119217 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		6BA0625F2BD0E49C0080FCA9 /* HighScoreViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				6B4303CB2BBB7CE10003E208 /* GameView.swift */,
 				6B4303CD2BBB7EED0003E208 /* GameViewModel.swift */,
 				6B13A88E2BC4C25200B53EE0 /* HighScoreView.swift */,
+				6BA0625F2BD0E49C0080FCA9 /* HighScoreViewModel.swift */,
 				6B19D69A2BB25E7400516B4F /* Assets.xcassets */,
 				6B19D69C2BB25E7400516B4F /* Preview Content */,
 			);
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6B82C93F2BBB7A5000119217 /* MenuViewModel.swift in Sources */,
+				6BA062602BD0E49C0080FCA9 /* HighScoreViewModel.swift in Sources */,
 				6B19D6972BB25E7300516B4F /* BubblePopApp.swift in Sources */,
 				6B4303CC2BBB7CE10003E208 /* GameView.swift in Sources */,
 				6B13A88F2BC4C25200B53EE0 /* HighScoreView.swift in Sources */,
