@@ -11,7 +11,9 @@ import SwiftUI
 struct BubblePopApp: App {
     var body: some Scene {
         WindowGroup {
-            MenuView(gameTimeLimit: 60)
+            NavigationView {
+                MenuView(gameTimeLimit: 60)
+            }
         }
     }
 }
