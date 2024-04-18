@@ -25,6 +25,7 @@ struct GameView: View {
                         .bold()
                         .foregroundStyle(.cyan)
                         .padding()
+                    Text("Name: \(viewModel.username)")
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

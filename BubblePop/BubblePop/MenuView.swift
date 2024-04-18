@@ -23,6 +23,15 @@ struct MenuView : View {
                 .font(.system(size: 50))
                 .bold()
                 .foregroundStyle(.cyan)
+            HStack {
+                Spacer(minLength: 50)
+                Text("Name: ")
+                TextField("Enter to save your highscore", text: $viewModel.username)
+                    .onSubmit {
+                        viewModel.saveUsername()
+                    }
+            }
+
             Spacer()
             Text("Game Time limit: \(Int(viewModel.gameTimeLimit)) seconds")
                 .font(.headline)

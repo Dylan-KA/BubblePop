@@ -19,9 +19,12 @@ class GameViewModel : ObservableObject {
     
     @Published var gameTimeLeft: Int
     @Published var bubbles :[Bubble] = []
+    @Published var username: String = ""
+    let userDefaults  = UserDefaults.standard
     
     init(gameTimeLeft :Int) {
         self.gameTimeLeft = gameTimeLeft
+        self.username = userDefaults.string(forKey: "username") ?? ""
     }
     
     let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
@@ -36,7 +39,7 @@ class GameViewModel : ObservableObject {
     
     func generateBubbles() {
         for _ in 0...4 {
-            let position = CGPoint(x: Int.random(in: 0...300), y: Int.random(in: 0...700))
+            let position = CGPoint(x: Int.random(in: -280...280), y: Int.random(in: 100...750))
             let width = CGFloat(Int.random(in: 25...50))
             let bubble = Bubble(position: position, width: width)
             bubbles.append(bubble)

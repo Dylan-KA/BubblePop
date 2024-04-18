@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6B13A88F2BC4C25200B53EE0 /* HighScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B13A88E2BC4C25200B53EE0 /* HighScoreView.swift */; };
 		6B19D6972BB25E7300516B4F /* BubblePopApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B19D6962BB25E7300516B4F /* BubblePopApp.swift */; };
 		6B19D69B2BB25E7400516B4F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B19D69A2BB25E7400516B4F /* Assets.xcassets */; };
 		6B19D69E2BB25E7400516B4F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B19D69D2BB25E7400516B4F /* Preview Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6B13A88E2BC4C25200B53EE0 /* HighScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighScoreView.swift; sourceTree = "<group>"; };
 		6B19D6932BB25E7300516B4F /* BubblePop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubblePop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B19D6962BB25E7300516B4F /* BubblePopApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubblePopApp.swift; sourceTree = "<group>"; };
 		6B19D69A2BB25E7400516B4F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -62,6 +64,7 @@
 				6B82C93E2BBB7A5000119217 /* MenuViewModel.swift */,
 				6B4303CB2BBB7CE10003E208 /* GameView.swift */,
 				6B4303CD2BBB7EED0003E208 /* GameViewModel.swift */,
+				6B13A88E2BC4C25200B53EE0 /* HighScoreView.swift */,
 				6B19D69A2BB25E7400516B4F /* Assets.xcassets */,
 				6B19D69C2BB25E7400516B4F /* Preview Content */,
 			);
@@ -149,6 +152,7 @@
 				6B82C93F2BBB7A5000119217 /* MenuViewModel.swift in Sources */,
 				6B19D6972BB25E7300516B4F /* BubblePopApp.swift in Sources */,
 				6B4303CC2BBB7CE10003E208 /* GameView.swift in Sources */,
+				6B13A88F2BC4C25200B53EE0 /* HighScoreView.swift in Sources */,
 				6B4303CE2BBB7EED0003E208 /* GameViewModel.swift in Sources */,
 				6B4DCAAE2BBB78CC006AB9B4 /* MenuView.swift in Sources */,
 			);
