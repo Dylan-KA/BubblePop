@@ -58,6 +58,7 @@ struct GameView: View {
                     .foregroundStyle(bubble.color)
                     .onTapGesture {
                         viewModel.addToScore(newScore: bubble.points)
+                        viewModel.removeBubble(ID: bubble.id)
                     }
             }
             

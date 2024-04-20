@@ -91,6 +91,10 @@ class GameViewModel : ObservableObject {
         bubbles.removeAll()
     }
     
+    func removeBubble(ID: String) {
+        bubbles.removeAll { $0.id == ID }
+    }
+    
     func addToScore(newScore: Int) {
         gameScore += newScore
     }
