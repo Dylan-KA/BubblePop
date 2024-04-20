@@ -22,12 +22,15 @@ class GameViewModel : ObservableObject {
     @Published var bubbles :[Bubble] = []
     @Published var username: String = ""
     @Published var highScores :[String : Int]
+    @Published var sortedHighScores: [(String, Int)] = []
+    
     let userDefaults  = UserDefaults.standard
     
     init(gameTimeLeft :Int) {
         self.gameTimeLeft = gameTimeLeft
         self.username = userDefaults.string(forKey: "username") ?? ""
         self.highScores = userDefaults.object(forKey: "highScores") as? [String : Int] ?? [:]
+        sortHighScores()
     }
     
     let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
@@ -35,8 +38,6 @@ class GameViewModel : ObservableObject {
     func countdown() {
         if (gameTimeLeft > 0) {
             gameTimeLeft -= 1
-        } else {
-            saveScore()
         }
     }
     
@@ -67,7 +68,10 @@ class GameViewModel : ObservableObject {
             highScores["\(username)"] = gameScore
             userDefaults.set(highScores, forKey: "highScores")
         }
-
+    }
+    
+    func sortHighScores() {
+        sortedHighScores = highScores.sorted { $0.value > $1.value }
     }
     
 }

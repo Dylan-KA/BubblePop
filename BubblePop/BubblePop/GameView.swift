@@ -68,7 +68,10 @@ struct GameView: View {
                 viewModel.generateBubbles()
             } else {
                 viewModel.saveScore()
+                viewModel.sortHighScores()
                 viewModel.removeAllBubbles()
+                print("Timer over")
+                viewModel.timer.upstream.connect().cancel()
                 showHighScores = true
             }
         })
@@ -83,11 +86,11 @@ struct GameView: View {
                 .foregroundStyle(.cyan)
                 .padding()
             List {
-                ForEach(Array(viewModel.highScores.keys), id: \.self) { key in
-                    Section() {
-                        Text("\(key) : \(viewModel.highScores[key] ?? -1)")
+                    ForEach(viewModel.sortedHighScores, id: \.0) { key, value in
+                            Section {
+                                Text("\(key) : \(value)")
                             }
-                        }
+                    }
             }
         }
     }
@@ -95,5 +98,5 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView(gameTimeLimit: 1)
+    GameView(gameTimeLimit: 10)
 }
