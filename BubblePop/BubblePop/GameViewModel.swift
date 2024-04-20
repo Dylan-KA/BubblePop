@@ -19,14 +19,15 @@ class GameViewModel : ObservableObject {
     
     @Published var gameTimeLeft: Int
     @Published var gameScore: Int = 0
-    @Published var isGameOver: Bool = false
     @Published var bubbles :[Bubble] = []
     @Published var username: String = ""
+    @Published var highScores :[String : Int]
     let userDefaults  = UserDefaults.standard
     
     init(gameTimeLeft :Int) {
         self.gameTimeLeft = gameTimeLeft
         self.username = userDefaults.string(forKey: "username") ?? ""
+        self.highScores = userDefaults.object(forKey: "highScores") as? [String : Int] ?? [:]
     }
     
     let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
@@ -48,18 +49,23 @@ class GameViewModel : ObservableObject {
         }
     }
     
+    func removeAllBubbles() {
+        bubbles.removeAll()
+    }
+    
     func addToScore(newScore: Int) {
         gameScore += newScore
     }
     
     func saveScore() {
-        isGameOver = true
-        if (userDefaults.object(forKey: "\(username)") != nil) {
-            if (gameScore > userDefaults.integer(forKey: "\(username)")) {
-                userDefaults.setValue(gameScore, forKey: "\(username)")
+        if (highScores["\(username)"] != nil) {
+            if (gameScore > highScores["\(username)"]!) {
+                highScores["\(username)"] = gameScore
+                userDefaults.set(highScores, forKey: "highScores")
             }
         } else {
-            userDefaults.setValue(gameScore, forKey: "\(username)")
+            highScores["\(username)"] = gameScore
+            userDefaults.set(highScores, forKey: "highScores")
         }
 
     }

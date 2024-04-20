@@ -11,7 +11,8 @@ import SwiftUI
 struct GameView: View {
     
     @StateObject var viewModel :GameViewModel
-    
+    @State private var showHighScores = false
+
     init(gameTimeLimit: Int) {
         _viewModel = StateObject(wrappedValue: GameViewModel(gameTimeLeft: gameTimeLimit))
     }
@@ -27,22 +28,24 @@ struct GameView: View {
             GeometryReader { geometry in
                 VStack {
                     HStack {
-                        Text("Score: \(viewModel.gameScore)")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.cyan)
-                            .padding()
-                        Spacer()
-                        Text("Time left: \(viewModel.gameTimeLeft)")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.cyan)
-                            .padding()
+                        if (!showHighScores) {
+                            Text("Score: \(viewModel.gameScore)")
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                                .padding()
+                            Spacer()
+                            Text("Time left: \(viewModel.gameTimeLeft)")
+                                .font(.title)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                                .padding()
+                        }
+                        
                     }
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .border(.cyan)
                 .onAppear {
                 }
             }
@@ -54,7 +57,10 @@ struct GameView: View {
                         viewModel.addToScore(newScore: 1)
                     }
             }
-            
+            if (showHighScores) {
+                highScores
+                    .transition(.move(edge: .trailing))
+            }
             
         }.onReceive(viewModel.timer, perform: { _ in
             viewModel.countdown()
@@ -62,12 +68,32 @@ struct GameView: View {
                 viewModel.generateBubbles()
             } else {
                 viewModel.saveScore()
-                //LOAD NEW VIEW HERE
+                viewModel.removeAllBubbles()
+                showHighScores = true
             }
         })
     }
+    
+    var highScores : some View {
+        VStack {
+            Spacer()
+            Text("HighScores")
+                .font(.largeTitle)
+                .bold()
+                .foregroundStyle(.cyan)
+                .padding()
+            List {
+                ForEach(Array(viewModel.highScores.keys), id: \.self) { key in
+                    Section() {
+                        Text("\(key) : \(viewModel.highScores[key] ?? -1)")
+                            }
+                        }
+            }
+        }
+    }
+    
 }
 
 #Preview {
-    GameView(gameTimeLimit: 10)
+    GameView(gameTimeLimit: 1)
 }
