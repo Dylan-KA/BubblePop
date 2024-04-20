@@ -22,6 +22,7 @@ class GameViewModel : ObservableObject {
     @Published var gameTimeLeft: Int
     @Published var gameScore: Int = 0
     @Published var bubbles :[Bubble] = []
+    @Published var previousBubble :Int = 0
     @Published var username: String = ""
     @Published var highScores :[String : Int]
     @Published var sortedHighScores: [(String, Int)] = []
@@ -96,7 +97,13 @@ class GameViewModel : ObservableObject {
     }
     
     func addToScore(newScore: Int) {
-        gameScore += newScore
+        if (newScore == previousBubble) {
+            var newScoreFloat: Float = Float(newScore)
+            gameScore += Int(newScoreFloat*1.5)
+        } else {
+            gameScore += newScore
+        }
+        previousBubble = newScore
     }
     
     func saveScore() {
