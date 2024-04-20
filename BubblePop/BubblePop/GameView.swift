@@ -55,6 +55,7 @@ struct GameView: View {
                 bubble in Circle()
                     .position(bubble.position)
                     .frame(width: bubble.width)
+                    .foregroundStyle(bubble.rarity)
                     .onTapGesture {
                         viewModel.addToScore(newScore: 1)
                     }

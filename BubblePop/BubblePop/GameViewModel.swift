@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Bubble: Identifiable {
     let id :String = UUID().uuidString
     let position : CGPoint
     let width: CGFloat
-    //rarity
+    let rarity: Color
 }
 
 
@@ -41,11 +42,28 @@ class GameViewModel : ObservableObject {
         }
     }
     
+    func generateRarity() -> Color {
+        let rarity = Int.random(in: 0...100)
+        if (rarity <= 40) {
+            return .red
+        } else if (rarity > 40 && rarity <= 70) {
+            return .pink
+        } else if (rarity > 70 && rarity <= 85) {
+            return .green
+        } else if (rarity > 85 && rarity <= 95) {
+            return .blue
+        } else if (rarity > 95) {
+            return .black
+        }
+        return .gray
+    }
+    
     func generateBubbles() {
         for _ in 0...4 {
             let position = CGPoint(x: Int.random(in: -280...280), y: Int.random(in: 100...750))
             let width = CGFloat(Int.random(in: 25...50))
-            let bubble = Bubble(position: position, width: width)
+            let rarity = generateRarity()
+            let bubble = Bubble(position: position, width: width, rarity: rarity)
             bubbles.append(bubble)
         }
     }
