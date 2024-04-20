@@ -27,7 +27,7 @@ struct MenuView : View {
                 Spacer(minLength: 50)
                 Text("Name: ")
                 TextField("Enter to save your highscore", text: $viewModel.username)
-                    .onSubmit {
+                    .onChange(of: viewModel.username) { oldValue, newValue in
                         viewModel.saveUsername()
                     }
             }
