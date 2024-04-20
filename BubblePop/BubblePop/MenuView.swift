@@ -31,14 +31,12 @@ struct MenuView : View {
                         viewModel.saveUsername()
                     }
             }
-
             Spacer()
             Text("Game Time limit: \(Int(viewModel.gameTimeLimit)) seconds")
                 .font(.headline)
                 .foregroundStyle(.cyan)
             Slider(value: $viewModel.gameTimeLimit, in: 10.0...90.0, step: 1.0)
                 .padding()
-            
             NavigationLink {
                 GameView(gameTimeLimit: Int(viewModel.gameTimeLimit))
             } label : {

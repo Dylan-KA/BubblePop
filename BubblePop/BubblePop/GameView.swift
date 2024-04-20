@@ -20,11 +20,12 @@ struct GameView: View {
     var body : some View {
         ZStack {
             
-            //BACKGROUND
+            //Background
             Color.cyan
                 .ignoresSafeArea()
             Color.white
             
+            //Top-Text
             GeometryReader { geometry in
                 VStack {
                     HStack {
@@ -41,7 +42,6 @@ struct GameView: View {
                                 .foregroundStyle(.cyan)
                                 .padding()
                         }
-                        
                     }
                     Spacer()
                 }
@@ -49,7 +49,9 @@ struct GameView: View {
                 .onAppear {
                 }
             }
-            ForEach(viewModel.bubbles) { 
+            
+            //Game Area
+            ForEach(viewModel.bubbles) {
                 bubble in Circle()
                     .position(bubble.position)
                     .frame(width: bubble.width)
@@ -57,16 +59,21 @@ struct GameView: View {
                         viewModel.addToScore(newScore: 1)
                     }
             }
+            
+            //Load High Score View
             if (showHighScores) {
                 highScores
                     .transition(.move(edge: .trailing))
             }
-            
-        }.onReceive(viewModel.timer, perform: { _ in
+        }
+        
+        //Countdown Timer
+        .onReceive(viewModel.timer, perform: { _ in
             viewModel.countdown()
             if (viewModel.gameTimeLeft > 0) {
                 viewModel.generateBubbles()
             } else {
+                //Timer End
                 viewModel.saveScore()
                 viewModel.sortHighScores()
                 viewModel.removeAllBubbles()
@@ -77,6 +84,7 @@ struct GameView: View {
         })
     }
     
+    //Highscore View
     var highScores : some View {
         VStack {
             Spacer()
@@ -86,16 +94,16 @@ struct GameView: View {
                 .foregroundStyle(.cyan)
                 .padding()
             List {
-                    ForEach(viewModel.sortedHighScores, id: \.0) { key, value in
-                            Section {
-                                Text("\(key) : \(value)")
-                            }
+                ForEach(viewModel.sortedHighScores, id: \.0) { key, value in
+                    Section {
+                        Text("\(key) : \(value)")
                     }
+                }
             }
         }
     }
-    
 }
+
 
 #Preview {
     GameView(gameTimeLimit: 10)
