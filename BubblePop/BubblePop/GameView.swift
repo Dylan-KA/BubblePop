@@ -18,14 +18,27 @@ struct GameView: View {
         
     var body : some View {
         ZStack {
+            
+            //BACKGROUND
+            Color.cyan
+                .ignoresSafeArea()
+            Color.white
+            
             GeometryReader { geometry in
                 VStack {
-                    Text("Time left: \(viewModel.gameTimeLeft)")
-                        .font(.title)
-                        .bold()
-                        .foregroundStyle(.cyan)
-                        .padding()
-                    Text("Name: \(viewModel.username)")
+                    HStack {
+                        Text("Score: \(viewModel.gameScore)")
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.cyan)
+                            .padding()
+                        Spacer()
+                        Text("Time left: \(viewModel.gameTimeLeft)")
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.cyan)
+                            .padding()
+                    }
                     Spacer()
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -38,9 +51,7 @@ struct GameView: View {
                     .position(bubble.position)
                     .frame(width: bubble.width)
                     .onTapGesture {
-                        print("Bubble Popped")
                         viewModel.addToScore(newScore: 1)
-                        print("Score is: \(viewModel.gameScore)")
                     }
             }
             
