@@ -89,20 +89,9 @@ class GameViewModel : ObservableObject {
     }
     
     func generateBubbles() {
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-            return
-        }
-        
-        let safeAreaInsets = windowScene.windows.first?.safeAreaInsets
-        let screenWidth = UIScreen.main.bounds.width - (safeAreaInsets?.left ?? 0) - (safeAreaInsets?.right ?? 0)
-        let screenHeight = UIScreen.main.bounds.height - (safeAreaInsets?.top ?? 0) - (safeAreaInsets?.bottom ?? 0)
-        
         let numToGenerate = Int.random(in: 0...(maxBubbles - bubbles.count))
         for _ in 0..<numToGenerate {
-            let position = CGPoint(
-                x: CGFloat.random(in: (-screenWidth / 2 + 60)...(screenWidth / 2)), // Adjust according to bubble width
-                y: CGFloat.random(in: 80...(screenHeight - 40)) // Adjust based on top and bottom padding
-            )
+            let position = getValidPosition()
             let width = CGFloat.random(in: 50...60)
             let points = generateRarity()
             let color = getColor(points: points)
@@ -143,6 +132,35 @@ class GameViewModel : ObservableObject {
     
     func sortHighScores() {
         sortedHighScores = highScores.sorted { $0.value > $1.value }
+    }
+    
+    func getValidPosition() -> CGPoint {
+        
+        //Get safe-bounds of the current screen size
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return CGPoint()
+        }
+        let safeAreaInsets = windowScene.windows.first?.safeAreaInsets
+        let screenWidth = UIScreen.main.bounds.width - (safeAreaInsets?.left ?? 0) - (safeAreaInsets?.right ?? 0)
+        let screenHeight = UIScreen.main.bounds.height - (safeAreaInsets?.top ?? 0) - (safeAreaInsets?.bottom ?? 0)
+        
+        //Prevent bubbles overlapping
+        var newBubblePosition: CGPoint = CGPoint()
+        var isOverlapping = true
+        
+        while isOverlapping {
+            newBubblePosition = CGPoint(
+                x: CGFloat.random(in: (-screenWidth / 2 + 60)...(screenWidth / 2)),
+                y: CGFloat.random(in: 80...(screenHeight - 60)))
+            
+            isOverlapping = bubbles.contains { bubble in
+                let distance = sqrt(pow(bubble.position.x - newBubblePosition.x, 2) + pow(bubble.position.y - newBubblePosition.y, 2))
+                let minDistance = (bubble.width + 60) / 2
+                return distance < minDistance
+            }
+        }
+        
+        return newBubblePosition
     }
     
 }
