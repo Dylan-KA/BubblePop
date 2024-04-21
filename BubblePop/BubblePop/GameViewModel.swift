@@ -67,7 +67,7 @@ class GameViewModel : ObservableObject {
         case 1:
             return .red
         case 2:
-            return .pink
+            return Color(red: 255, green: 0, blue: 255)
         case 5:
             return .green
         case 8:
