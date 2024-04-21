@@ -25,7 +25,7 @@ struct GameView: View {
             Color.cyan
                 .ignoresSafeArea()
             Color.white
-            
+
             //Top-Text
             GeometryReader { geometry in
                 VStack {

@@ -89,10 +89,21 @@ class GameViewModel : ObservableObject {
     }
     
     func generateBubbles() {
-        let numToGenerate = Int.random(in: 0...(maxBubbles-bubbles.count))
-        for _ in 0...numToGenerate {
-            let position = CGPoint(x: Int.random(in: -280...280), y: Int.random(in: 100...750))
-            let width = CGFloat(Int.random(in: 50...60))
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
+            return
+        }
+        
+        let safeAreaInsets = windowScene.windows.first?.safeAreaInsets
+        let screenWidth = UIScreen.main.bounds.width - (safeAreaInsets?.left ?? 0) - (safeAreaInsets?.right ?? 0)
+        let screenHeight = UIScreen.main.bounds.height - (safeAreaInsets?.top ?? 0) - (safeAreaInsets?.bottom ?? 0)
+        
+        let numToGenerate = Int.random(in: 0...(maxBubbles - bubbles.count))
+        for _ in 0..<numToGenerate {
+            let position = CGPoint(
+                x: CGFloat.random(in: (-screenWidth / 2 + 60)...(screenWidth / 2)), // Adjust according to bubble width
+                y: CGFloat.random(in: 80...(screenHeight - 40)) // Adjust based on top and bottom padding
+            )
+            let width = CGFloat.random(in: 50...60)
             let points = generateRarity()
             let color = getColor(points: points)
             let bubble = Bubble(position: position, width: width, points: points, color: color)
