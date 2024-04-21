@@ -27,28 +27,26 @@ struct GameView: View {
             Color.white
 
             //Top-Text
-            GeometryReader { geometry in
-                VStack {
-                    HStack {
-                        if (!showHighScores) {
-                            Text("Score: \(viewModel.gameScore)")
-                                .font(.title)
-                                .bold()
-                                .foregroundStyle(.cyan)
-                                .padding()
-                            Spacer()
-                            Text("Time left: \(viewModel.gameTimeLeft)")
-                                .font(.title)
-                                .bold()
-                                .foregroundStyle(.cyan)
-                                .padding()
-                        }
+            VStack {
+                HStack {
+                    if (!showHighScores) {
+                        Text("Score: \(viewModel.gameScore)")
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.cyan)
+                            .padding()
+                        Spacer()
+                        Text("Time left: \(viewModel.gameTimeLeft)")
+                            .font(.title)
+                            .bold()
+                            .foregroundStyle(.cyan)
+                            .padding()
                     }
-                    Spacer()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .onAppear {
-                }
+                Spacer()
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .onAppear {
             }
             
             //Game Area

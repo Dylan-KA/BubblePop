@@ -137,9 +137,7 @@ class GameViewModel : ObservableObject {
     func getValidPosition() -> CGPoint {
         
         //Get safe-bounds of the current screen size
-        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else {
-            return CGPoint()
-        }
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return CGPoint() }
         let safeAreaInsets = windowScene.windows.first?.safeAreaInsets
         let screenWidth = UIScreen.main.bounds.width - (safeAreaInsets?.left ?? 0) - (safeAreaInsets?.right ?? 0)
         let screenHeight = UIScreen.main.bounds.height - (safeAreaInsets?.top ?? 0) - (safeAreaInsets?.bottom ?? 0)
@@ -159,7 +157,6 @@ class GameViewModel : ObservableObject {
                 return distance < minDistance
             }
         }
-        
         return newBubblePosition
     }
     
