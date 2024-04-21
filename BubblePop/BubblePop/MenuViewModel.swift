@@ -10,10 +10,11 @@ import Foundation
 class MenuViewModel : ObservableObject {
     
     @Published var gameTimeLimit: Double = 60.0
+    @Published var maxBubbles: Double = 15.0
     
     let userDefaults  = UserDefaults.standard
     @Published var username: String = ""
-    
+        
     init() {
         self.username = userDefaults.string(forKey: "username") ?? ""
     }

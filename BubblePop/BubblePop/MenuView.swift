@@ -37,8 +37,13 @@ struct MenuView : View {
                 .foregroundStyle(.cyan)
             Slider(value: $viewModel.gameTimeLimit, in: 10.0...90.0, step: 1.0)
                 .padding()
+            Text("Maximum Bubbles: \(Int(viewModel.maxBubbles))")
+                .font(.headline)
+                .foregroundStyle(.cyan)
+            Slider(value: $viewModel.maxBubbles, in: 5...20, step: 1.0)
+                .padding()
             NavigationLink {
-                GameView(gameTimeLimit: Int(viewModel.gameTimeLimit))
+                GameView(gameTimeLimit: Int(viewModel.gameTimeLimit), maxBubbles: Int(viewModel.maxBubbles))
             } label : {
                     Text("Play Game")
                     .font(.headline)

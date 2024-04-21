@@ -21,6 +21,7 @@ class GameViewModel : ObservableObject {
     
     @Published var gameTimeLeft: Int
     @Published var gameScore: Int = 0
+    @Published var maxBubbles: Int
     @Published var bubbles :[Bubble] = []
     @Published var previousBubble :Int = 0
     @Published var username: String = ""
@@ -29,8 +30,9 @@ class GameViewModel : ObservableObject {
     
     let userDefaults  = UserDefaults.standard
     
-    init(gameTimeLeft :Int) {
+    init(gameTimeLeft :Int, maxBubbles :Int) {
         self.gameTimeLeft = gameTimeLeft
+        self.maxBubbles = maxBubbles
         self.username = userDefaults.string(forKey: "username") ?? ""
         self.highScores = userDefaults.object(forKey: "highScores") as? [String : Int] ?? [:]
         sortHighScores()
@@ -77,10 +79,20 @@ class GameViewModel : ObservableObject {
         }
     }
     
+    func removeSomeBubbles() {
+        if (bubbles.count == 0) { return }
+        let numToRemove = Int.random(in: 0...bubbles.count)
+        if (numToRemove == 0) { return }
+        for _ in 0...numToRemove {
+            if (bubbles.count > 0) { bubbles.removeFirst() }
+        }
+    }
+    
     func generateBubbles() {
-        for _ in 0...4 {
+        let numToGenerate = Int.random(in: 0...(maxBubbles-bubbles.count))
+        for _ in 0...numToGenerate {
             let position = CGPoint(x: Int.random(in: -280...280), y: Int.random(in: 100...750))
-            let width = CGFloat(Int.random(in: 25...50))
+            let width = CGFloat(Int.random(in: 50...60))
             let points = generateRarity()
             let color = getColor(points: points)
             let bubble = Bubble(position: position, width: width, points: points, color: color)
@@ -98,7 +110,7 @@ class GameViewModel : ObservableObject {
     
     func addToScore(newScore: Int) {
         if (newScore == previousBubble) {
-            var newScoreFloat: Float = Float(newScore)
+            let newScoreFloat: Float = Float(newScore)
             gameScore += Int(newScoreFloat*1.5)
         } else {
             gameScore += newScore

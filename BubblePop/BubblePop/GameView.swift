@@ -13,8 +13,9 @@ struct GameView: View {
     @StateObject var viewModel :GameViewModel
     @State private var showHighScores = false
 
-    init(gameTimeLimit: Int) {
-        _viewModel = StateObject(wrappedValue: GameViewModel(gameTimeLeft: gameTimeLimit))
+    init(gameTimeLimit: Int, maxBubbles: Int) {
+        _viewModel = StateObject(wrappedValue: GameViewModel(
+            gameTimeLeft: gameTimeLimit, maxBubbles: maxBubbles))
     }
         
     var body : some View {
@@ -73,6 +74,7 @@ struct GameView: View {
         .onReceive(viewModel.timer, perform: { _ in
             viewModel.countdown()
             if (viewModel.gameTimeLeft > 0) {
+                viewModel.removeSomeBubbles()
                 viewModel.generateBubbles()
             } else {
                 //Timer End
@@ -108,5 +110,5 @@ struct GameView: View {
 
 
 #Preview {
-    GameView(gameTimeLimit: 10)
+    GameView(gameTimeLimit: 60, maxBubbles: 15)
 }
