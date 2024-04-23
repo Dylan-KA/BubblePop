@@ -16,7 +16,6 @@ struct Bubble: Identifiable {
     let color: Color
 }
 
-
 class GameViewModel : ObservableObject {
     
     @Published var gameStarted: Bool = false
