@@ -118,16 +118,15 @@ struct GameView: View {
                 .padding()
             List {
                 ForEach(viewModel.sortedHighScores, id: \.0) { key, value in
-                    Section {
-                        Text("\(key) : \(value)")
-                    }
+                    Text("\(key) : \(value)")
                 }
             }
+            .listStyle(.insetGrouped)
         }
     }
 }
 
 
 #Preview {
-    GameView(gameTimeLimit: 60, maxBubbles: 15)
+    GameView(gameTimeLimit: 10, maxBubbles: 15)
 }
