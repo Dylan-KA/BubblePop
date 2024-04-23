@@ -19,6 +19,8 @@ struct Bubble: Identifiable {
 
 class GameViewModel : ObservableObject {
     
+    @Published var gameStarted: Bool = false
+    @Published var startCountdown: Int = 3
     @Published var gameTimeLeft: Int
     @Published var gameScore: Int = 0
     @Published var maxBubbles: Int
@@ -41,8 +43,16 @@ class GameViewModel : ObservableObject {
     let timer = Timer.publish(every: 1.0, on: .main, in: .common).autoconnect()
     
     func countdown() {
-        if (gameTimeLeft > 0) {
-            gameTimeLeft -= 1
+        if (gameStarted) {
+            if (gameTimeLeft > 0) {
+                gameTimeLeft -= 1
+            }
+        } else {
+            if (startCountdown > 1) {
+                startCountdown -= 1
+            } else {
+                gameStarted = true
+            }
         }
     }
     

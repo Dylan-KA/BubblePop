@@ -70,6 +70,15 @@ struct GameView: View {
             .onAppear {
             }
             
+            if (!viewModel.gameStarted) {
+                ZStack {
+                    Text("\(viewModel.startCountdown)")
+                        .font(.system(size: 200))
+                        .bold()
+                        .foregroundStyle(.cyan)
+                }
+            }
+            
             //Game Area
             ForEach(viewModel.bubbles) {
                 bubble in Circle()
@@ -92,17 +101,19 @@ struct GameView: View {
         //Countdown Timer
         .onReceive(viewModel.timer, perform: { _ in
             viewModel.countdown()
-            if (viewModel.gameTimeLeft > 0) {
-                viewModel.removeSomeBubbles()
-                viewModel.generateBubbles()
-            } else {
-                //Timer End
-                viewModel.saveScore()
-                viewModel.sortHighScores()
-                viewModel.removeAllBubbles()
-                print("Timer over")
-                viewModel.timer.upstream.connect().cancel()
-                showHighScores = true
+            if (viewModel.gameStarted) {
+                if (viewModel.gameTimeLeft > 0) {
+                    viewModel.removeSomeBubbles()
+                    viewModel.generateBubbles()
+                } else {
+                    //Timer End
+                    viewModel.saveScore()
+                    viewModel.sortHighScores()
+                    viewModel.removeAllBubbles()
+                    print("Timer over")
+                    viewModel.timer.upstream.connect().cancel()
+                    showHighScores = true
+                }
             }
         })
     }
@@ -128,5 +139,5 @@ struct GameView: View {
 
 
 #Preview {
-    GameView(gameTimeLimit: 10, maxBubbles: 15)
+    GameView(gameTimeLimit: 60, maxBubbles: 15)
 }
