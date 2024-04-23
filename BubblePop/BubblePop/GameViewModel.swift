@@ -26,6 +26,8 @@ class GameViewModel : ObservableObject {
     @Published var maxBubbles: Int
     @Published var bubbles :[Bubble] = []
     @Published var previousBubble :Int = 0
+    @Published var newScoreDisplay :String = ""
+    @Published var newScoreColour :Color = Color.black
     @Published var username: String = ""
     @Published var highScores :[String : Int]
     @Published var sortedHighScores: [(String, Int)] = []
@@ -118,7 +120,7 @@ class GameViewModel : ObservableObject {
         bubbles.removeAll { $0.id == ID }
     }
     
-    func addToScore(newScore: Int) {
+    func addToScore(newScore: Int, newColor: Color) {
         if (newScore == previousBubble) {
             let newScoreFloat: Float = Float(newScore)
             gameScore += Int(newScoreFloat*1.5)
@@ -126,6 +128,8 @@ class GameViewModel : ObservableObject {
             gameScore += newScore
         }
         previousBubble = newScore
+        newScoreDisplay = "+\(newScore)"
+        newScoreColour = newColor
     }
     
     func saveScore() {
@@ -164,7 +168,7 @@ class GameViewModel : ObservableObject {
         while isOverlapping {
             newBubblePosition = CGPoint(
                 x: CGFloat.random(in: (-screenWidth / 2 + 60)...(screenWidth / 2)),
-                y: CGFloat.random(in: 80...(screenHeight - 60)))
+                y: CGFloat.random(in: 100...(screenHeight - 60)))
             
             isOverlapping = bubbles.contains { bubble in
                 let distance = sqrt(pow(bubble.position.x - newBubblePosition.x, 2) + pow(bubble.position.y - newBubblePosition.y, 2))

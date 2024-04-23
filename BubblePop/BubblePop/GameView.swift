@@ -31,22 +31,22 @@ struct GameView: View {
                 HStack {
                     if (!showHighScores) {
                         VStack {
-                            Text("Score:")
+                            Text("High Score: ")
                                 .font(.title2)
                                 .bold()
                                 .foregroundStyle(.cyan)
-                            Text("\(viewModel.gameScore)")
+                            Text("\(viewModel.getHighestScore())")
                                 .font(.title2)
                                 .bold()
                                 .foregroundStyle(.cyan)
                         }
                         Spacer()
                         VStack {
-                            Text("High Score: ")
+                            Text("Score:")
                                 .font(.title2)
                                 .bold()
                                 .foregroundStyle(.cyan)
-                            Text("\(viewModel.getHighestScore())")
+                            Text("\(viewModel.gameScore)")
                                 .font(.title2)
                                 .bold()
                                 .foregroundStyle(.cyan)
@@ -64,6 +64,13 @@ struct GameView: View {
                         }
                     }
                 }.padding()
+                HStack {
+                    Text("\(viewModel.newScoreDisplay)")
+                        .foregroundStyle(viewModel.newScoreColour)
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding(-50)
+                }
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -86,7 +93,7 @@ struct GameView: View {
                     .frame(width: bubble.width)
                     .foregroundStyle(bubble.color)
                     .onTapGesture {
-                        viewModel.addToScore(newScore: bubble.points)
+                        viewModel.addToScore(newScore: bubble.points, newColor: bubble.color)
                         viewModel.removeBubble(ID: bubble.id)
                     }
             }
@@ -105,6 +112,7 @@ struct GameView: View {
                 if (viewModel.gameTimeLeft > 0) {
                     viewModel.removeSomeBubbles()
                     viewModel.generateBubbles()
+                    viewModel.newScoreColour=Color.white
                 } else {
                     //Timer End
                     viewModel.saveScore()
