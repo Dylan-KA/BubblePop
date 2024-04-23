@@ -134,6 +134,11 @@ class GameViewModel : ObservableObject {
         sortedHighScores = highScores.sorted { $0.value > $1.value }
     }
     
+    func getHighestScore() -> Int {        
+        let highestScore = highScores.max { $0.value < $1.value }?.value ?? 0
+        return highestScore
+    }
+    
     func getValidPosition() -> CGPoint {
         
         //Get safe-bounds of the current screen size

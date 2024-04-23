@@ -30,19 +30,40 @@ struct GameView: View {
             VStack {
                 HStack {
                     if (!showHighScores) {
-                        Text("Score: \(viewModel.gameScore)")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.cyan)
-                            .padding()
+                        VStack {
+                            Text("Score:")
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                            Text("\(viewModel.gameScore)")
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                        }
                         Spacer()
-                        Text("Time left: \(viewModel.gameTimeLeft)")
-                            .font(.title)
-                            .bold()
-                            .foregroundStyle(.cyan)
-                            .padding()
+                        VStack {
+                            Text("High Score: ")
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                            Text("\(viewModel.getHighestScore())")
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                        }
+                        Spacer()
+                        VStack {
+                            Text("Time left:")
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                            Text("\(viewModel.gameTimeLeft)")
+                                .font(.title2)
+                                .bold()
+                                .foregroundStyle(.cyan)
+                        }
                     }
-                }
+                }.padding()
                 Spacer()
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
