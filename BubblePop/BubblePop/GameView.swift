@@ -133,7 +133,20 @@ struct GameView: View {
                 }
             }
             .listStyle(.insetGrouped)
-        }
+            NavigationLink {
+                GameView(gameTimeLimit: viewModel.gameTimeLeft, maxBubbles: viewModel.maxBubbles)
+            } label : {
+                    Text("Restart Game")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: 300)
+                    .frame(height: 55)
+                    .background(.cyan)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 25.0))
+                    .padding()
+            }
+        }.background(.white)
     }
 }
 
