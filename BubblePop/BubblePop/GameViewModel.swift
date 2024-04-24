@@ -15,6 +15,7 @@ struct Bubble: Identifiable {
     let points: Int
     let color: Color
     var scale: Double
+    var offsetY :Double
 }
 
 class GameViewModel : ObservableObject {
@@ -93,10 +94,19 @@ class GameViewModel : ObservableObject {
     
     func removeSomeBubbles() {
         if (bubbles.count == 0) { return }
-        let numToRemove = Int.random(in: 0...bubbles.count)
+        let numToRemove = Int.random(in: 0...bubbles.count-1)
         if (numToRemove == 0) { return }
-        for _ in 0...numToRemove {
-            if (bubbles.count > 0) { bubbles.removeFirst() }
+        for index in 0...numToRemove {
+            if (bubbles.count > 0) {
+                bubbles[index].offsetY += 500
+            }
+        }
+
+        // Remove bubbles after the loop has finished
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            for _ in 0...numToRemove {
+                self.bubbles.removeFirst()
+            }
         }
     }
     
@@ -108,7 +118,8 @@ class GameViewModel : ObservableObject {
             let points = generateRarity()
             let color = getColor(points: points)
             let scale = 1.0
-            let bubble = Bubble(position: position, width: width, points: points, color: color, scale: scale)
+            let offsetY = 0.0
+            let bubble = Bubble(position: position, width: width, points: points, color: color, scale: scale, offsetY: offsetY)
             bubbles.append(bubble)
         }
     }

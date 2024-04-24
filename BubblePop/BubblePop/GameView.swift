@@ -93,7 +93,9 @@ struct GameView: View {
                     .frame(width: bubble.width)
                     .foregroundStyle(bubble.color)
                     .scaleEffect(bubble.scale)
+                    .offset(y: bubble.offsetY)
                     .animation(.default, value: bubble.scale)
+                    .animation(.default, value: bubble.offsetY)
                     .onTapGesture {
                         viewModel.changeScale(ID: bubble.id)
                         viewModel.addToScore(newScore: bubble.points, newColor: bubble.color)
