@@ -141,14 +141,17 @@ class GameViewModel : ObservableObject {
     }
     
     func addToScore(newScore: Int, newColor: Color) {
+        var score: Int
         if (newScore == previousBubble) {
             let newScoreFloat: Float = Float(newScore)
-            gameScore += Int(newScoreFloat*1.5)
+            score = Int(newScoreFloat*1.5)
+            gameScore += score
         } else {
+            score = newScore
             gameScore += newScore
         }
         previousBubble = newScore
-        newScoreDisplay = "+\(newScore)"
+        newScoreDisplay = "+\(score)"
         newScoreColour = newColor
     }
     
