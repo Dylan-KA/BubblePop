@@ -124,7 +124,9 @@ class GameViewModel : ObservableObject {
     }
     
     func removeBubble(ID: String) {
-        bubbles.removeAll { $0.id == ID }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.bubbles.removeAll { $0.id == ID }
+        }
     }
     
     func addToScore(newScore: Int, newColor: Color) {
