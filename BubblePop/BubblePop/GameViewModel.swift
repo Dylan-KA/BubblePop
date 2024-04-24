@@ -14,6 +14,7 @@ struct Bubble: Identifiable {
     let width: CGFloat
     let points: Int
     let color: Color
+    var scale: Double
 }
 
 class GameViewModel : ObservableObject {
@@ -106,13 +107,20 @@ class GameViewModel : ObservableObject {
             let width = CGFloat.random(in: 50...60)
             let points = generateRarity()
             let color = getColor(points: points)
-            let bubble = Bubble(position: position, width: width, points: points, color: color)
+            let scale = 1.0
+            let bubble = Bubble(position: position, width: width, points: points, color: color, scale: scale)
             bubbles.append(bubble)
         }
     }
     
     func removeAllBubbles() {
         bubbles.removeAll()
+    }
+    
+    func changeScale(ID: String) {
+        if let index = bubbles.firstIndex(where: { $0.id == ID }) {
+                bubbles[index].scale = 0.0
+            }
     }
     
     func removeBubble(ID: String) {

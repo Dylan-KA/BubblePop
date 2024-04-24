@@ -92,9 +92,12 @@ struct GameView: View {
                     .position(bubble.position)
                     .frame(width: bubble.width)
                     .foregroundStyle(bubble.color)
+                    .scaleEffect(bubble.scale)
+                    .animation(.default, value: bubble.scale)
                     .onTapGesture {
+                        viewModel.changeScale(ID: bubble.id)
                         viewModel.addToScore(newScore: bubble.points, newColor: bubble.color)
-                        viewModel.removeBubble(ID: bubble.id)
+                        //viewModel.removeBubble(ID: bubble.id)
                     }
             }
             
